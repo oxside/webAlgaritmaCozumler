@@ -18,12 +18,13 @@ namespace webAlgaritmaCozumler.Controllers
             _logger = logger;
         }
 
-        VIndexSoruModel mm = new VIndexSoruModel();
+        VIndexSoruModel mm = new VIndexSoruModel(1000,1000);
             List<IndexBelirteci> birler = new List<IndexBelirteci>();
             List<IndexBelirteci> belirle = new List<IndexBelirteci>();
         List<IndexBelirteci> sinirDevamlari = new List<IndexBelirteci>();
         void  HesaplamaAsync()
         {
+            mm.soruBoya = (int[,])mm.Soru.Clone();
             for (int x = 0; x < mm.Soru.GetLength(0); x++)
             {
                 for (int y = 0; y < mm.Soru.GetLength(1); y++)
@@ -63,9 +64,14 @@ namespace webAlgaritmaCozumler.Controllers
                         if (ss != null)
                         {
                             ss.Kalacak = true;
+                            ss.Degeri = 1;
                             sinirDevamlari.Add(new IndexBelirteci() { xIndex = ss.xIndex, yIndex = ss.yIndex, Kalacak = true });
                              Arama(ss, 1);
                         }
+                    }
+                    else
+                    {
+                        mm.soruBoya[_indexNo.xIndex - 1, _indexNo.yIndex] = 2;
                     }
                 }
             }
@@ -83,6 +89,10 @@ namespace webAlgaritmaCozumler.Controllers
                              Arama(ss, 2);
                         }
                     }
+                    else
+                    {
+                        mm.soruBoya[_indexNo.xIndex + 1, _indexNo.yIndex] = 2;
+                    }
                 }
             }
             if (_indexNo.yIndex < mm.Soru.GetLength(1) - 2)
@@ -99,6 +109,10 @@ namespace webAlgaritmaCozumler.Controllers
                              Arama(ss, 4);
                         }
                     }
+                    else
+                    {
+                        mm.soruBoya[_indexNo.xIndex, _indexNo.yIndex+1] = 2;
+                    }
                 }
             }
             if (_indexNo.yIndex > 0)
@@ -114,6 +128,10 @@ namespace webAlgaritmaCozumler.Controllers
                             sinirDevamlari.Add(new IndexBelirteci() { xIndex = ss.xIndex, yIndex = ss.yIndex, Kalacak = true });
                              Arama(ss, 3);
                         }
+                    }
+                    else
+                    {
+                        mm.soruBoya[_indexNo.xIndex, _indexNo.yIndex-1] = 2;
                     }
                 }
             }

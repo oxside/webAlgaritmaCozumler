@@ -30,20 +30,20 @@
     ------------------------------------------------------------------------------------------
 </p>
 
-    @for (int x = 0; x < Model.Soru.GetLength(0); x++)
+    @for (int x = 0; x < Model.soruBoya.GetLength(0); x++)
     {
         <div>
             @foreach (var item in Model.Cevaplar)
             {
-                Model.Soru[item.xIndex, item.yIndex] = 0;
+                Model.soruBoya[item.xIndex, item.yIndex] = 0;
             }
-            @for (int y = 0; y < Model.Soru.GetLength(1); y++)
+            @for (int y = 0; y < Model.soruBoya.GetLength(1); y++)
             {
-                if (Model.Soru[x, y] == 1)
+                if (Model.soruBoya[x, y] == 1)
                 {                    
                     <img src="Resimler/KahveRengi.png" width="20" height="20" />
                 }
-                else if (Model.Soru[x, y] == 0)
+                else if (Model.soruBoya[x, y] == 0)
                 {
                     <img src="Resimler/KoyuMavi.png" width="20" height="20" />
                 }
@@ -59,3 +59,4 @@
         <button class="badge-success">
         </button>
     </div>
+   
